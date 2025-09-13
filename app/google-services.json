@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "132721092467",
+    "project_id": "carshopapp-de69c",
+    "storage_bucket": "carshopapp-de69c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132721092467:android:ae8f70e026279d54a08706",
+        "android_client_info": {
+          "package_name": "com.sabanbingul.carshopapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDei56rKqvN1wQ2y5CEz7dmDkcDElfqSZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
