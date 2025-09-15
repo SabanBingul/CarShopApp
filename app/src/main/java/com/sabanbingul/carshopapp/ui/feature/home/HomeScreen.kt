@@ -23,6 +23,9 @@ fun MainScreen(){
             item {
                 HeaderSection (username = "Alex Johnson", onBellClick = {})
             }
+            item {
+                SearchSection()
+            }
         }
     }
 }
