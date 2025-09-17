@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sabanbingul.carshopapp.ui.feature.home.MainScreen
 import com.sabanbingul.carshopapp.ui.theme.CarShopAppTheme
+import com.sabanbingul.carshopapp.viewmodel.CarViewModel
 import com.sabanbingul.carshopapp.viewmodel.CategoryViewModel
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +23,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val categoryViewModel : CategoryViewModel = viewModel()
-            MainScreen(categoryViewModel)
+            val carViewModel : CarViewModel = viewModel()
+
+            MainScreen(onCarClick = {}, carViewModel,categoryViewModel)
         }
     }
 }

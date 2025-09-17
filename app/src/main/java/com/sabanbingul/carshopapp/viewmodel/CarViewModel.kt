@@ -1,42 +1,50 @@
 package com.sabanbingul.carshopapp.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.sabanbingul.carshopapp.domain.CategoryModel
+import com.sabanbingul.carshopapp.domain.CarModel
 import androidx.compose.runtime.State
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class CategoryViewModel : ViewModel() {
-    private val _categories = mutableStateOf<List<CategoryModel>>(emptyList())
-    val categories : State<List<CategoryModel>> = _categories
+class CarViewModel : ViewModel(){
+
+    private val _cars = mutableStateOf<List<CarModel>>(emptyList())
+    val cars : State<List<CarModel>> = _cars
 
     private val _isLoading = mutableStateOf(true)
     val isLoading : State<Boolean> = _isLoading
 
     init {
-        loadCategories()
+        fetchCars()
     }
 
-    private fun loadCategories() {
-        val database = FirebaseDatabase.getInstance()
-        val ref = database.getReference("Category")
+    private fun fetchCars() {
+        val ref = FirebaseDatabase.getInstance().getReference("Cars")
 
-        ref.addListenerForSingleValueEvent(object : ValueEventListener{
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val list = ArrayList<CategoryModel>()
-                snapshot.children.forEach {
-                    it.getValue(CategoryModel::class.java)?.let { item -> list.add(item)}
+                val temp = mutableListOf<CarModel>()
+                for(child in snapshot.children){
+                    child.getValue(CarModel::class.java)?.let {
+                        temp.add(it)
+                    }
                 }
-                _categories.value = list
+                _cars.value = temp
                 _isLoading.value = false
             }
+
             override fun onCancelled(error: DatabaseError) {
                 _isLoading.value = false
             }
+
         })
+
+
+
     }
+
+
 }
