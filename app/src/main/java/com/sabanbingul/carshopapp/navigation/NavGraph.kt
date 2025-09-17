@@ -5,6 +5,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.sabanbingul.carshopapp.domain.CarModel
+import com.sabanbingul.carshopapp.ui.feature.detail.DetailScreen
 import com.sabanbingul.carshopapp.ui.feature.home.MainScreen
 import com.sabanbingul.carshopapp.viewmodel.CarViewModel
 import com.sabanbingul.carshopapp.viewmodel.CategoryViewModel
@@ -22,7 +24,9 @@ fun AppNavGraph() {
         composable(Screens.MAIN) {
             MainScreen(
                 onProfileClick = { navController.navigate(Screens.PROFILE) },
-                onCarClick = { navController.navigate(Screens.DETAIL) },
+                onCarClick = { car ->
+                    navController.currentBackStackEntry?.savedStateHandle?.set("car", car)
+                    navController.navigate(Screens.DETAIL) },
                 carViewModel = carViewModel,
                 categoryViewModel = categoryViewModel
             )
@@ -33,7 +37,11 @@ fun AppNavGraph() {
         }
 
         composable(Screens.DETAIL) {
-            // DetailScreen(onBackClick = { navController.popBackStack() })
+            val car = navController.previousBackStackEntry?.savedStateHandle?.get<CarModel>("car")
+            if(car != null){
+                DetailScreen(car = car, onBack = { navController.popBackStack() })
+            }
+
         }
     }
 }
